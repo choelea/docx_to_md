@@ -24,11 +24,11 @@ from docling_core.types.doc.base import ImageRefMode
 from pathlib import Path
 
 # MinIO 配置
-MINIO_ENDPOINT = "127.0.0.1:9000"
+MINIO_ENDPOINT = "10.3.70.127:9000"
 MINIO_ACCESS_KEY = "minioadmin"
 MINIO_SECRET_KEY = "minioadmin"
-MINIO_BUCKET = "img"
-MINIO_BASE_URL = "http://127.0.0.1:9000"
+MINIO_BUCKET = "md-images"
+MINIO_BASE_URL = "http://10.3.70.127:9000"
 
 def upload_file_to_minio(file_path, object_name):
     """上传文件到 MinIO 对象存储"""
@@ -136,8 +136,7 @@ def word_to_markdown_from_url(url, use_referenced_mode=True):
 
 def main():
     """主测试函数"""
-    test_url = "http://127.0.0.1:9000/img/%E4%B8%AD%E9%93%B6%E8%AF%81%E5%88%B8-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%86%E9%97%AE%E7%AD%94POC%E6%96%B9%E6%A1%880326-v1.4.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=T9WJS99TB65I1BF8ILHR%2F20250903%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250903T124900Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJUOVdKUzk5VEI2NUkxQkY4SUxIUiIsImV4cCI6MTc1Njk0NjUzNywicGFyZW50IjoibWluaW9hZG1pbiJ9.y0Sv8Gjeh5N5iOOBG8eqBoAAV2nW-yYLSCYCiGT6eRtTWnBBDtqG3P8Rn7Szo8wzaiPuWJ7XCatQlg4BhdYlrQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=4be5d400b22342cc31d392c2b28eda1942f46df92e395efa095a00dfca9e8085"
-    
+    test_url = "http://10.3.70.127:9001/api/v1/download-shared-object/aHR0cDovLzEyNy4wLjAuMTo5MDAwL21kLWltYWdlcy8lRTQlQkMlODElRTQlQjglOUFBSSUyMCVFNyU5RiVBNSVFOCVBRiU4NiVFNiU5NiU4NyVFNiVBMSVBMyVFNiVCMiVCQiVFNyU5MCU4NiVFOCVBNyU4NCVFOCU4QyU4MyVFNiU4MCVBNyVFNSVCQiVCQSVFOCVBRSVBRV8lRTklQTMlOUUlRTQlQjklQTYlRTclOUYlQTUlRTglQUYlODYlRTUlQkElOTMlMjAlMjgxJTI5LmRvY3g_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1WRUM5RTBEWEhIR0oxTk8wN0RaVyUyRjIwMjUwOTA0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDkwNFQwMzEzMzNaJlgtQW16LUV4cGlyZXM9NDMxOTkmWC1BbXotU2VjdXJpdHktVG9rZW49ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmhZMk5sYzNOTFpYa2lPaUpXUlVNNVJUQkVXRWhJUjBveFRrOHdOMFJhVnlJc0ltVjRjQ0k2TVRjMU5qazVORGMxTUN3aWNHRnlaVzUwSWpvaWJXbHVhVzloWkcxcGJpSjkuMjMzak9DYWF3d0VjMjl0WnB0MlJzTjZHX0RaTURQUzItZG9yN0FhcXFENDhqQjktY1dONVV5d25Ma2lRQ1N1Y3JpdkxLbVhDbDhSVDF2OUhnU3BkcGcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnZlcnNpb25JZD1udWxsJlgtQW16LVNpZ25hdHVyZT03MTcwZjNlMjU1MWRkOTg5YmEzM2VhZjljYWQ2YTczNDk1NDVmYzMyOGEwZTVhYjFmODRhY2NjNTZjNjQxMjQy"
     print("🚀 Word转Markdown转换器 - 最终版本")
     print("✨ 特性：")
     print("   • 使用Docling REFERENCED模式保持图片原始位置")
@@ -159,19 +158,6 @@ def main():
         
         print(f"💾 完整结果已保存到 {output_file}")
         
-        image_count = len(re.findall(r'!\[.*?\]\(http://127\.0\.0\.1:9000/img/.*?\)', markdown))
-        print(f"📸 成功处理图片数量: {image_count}")
-        
-        print("\n📝 前 300 字符预览:")
-        print("-" * 50)
-        print(markdown[:300])
-        print("-" * 50)
-        
-        if image_count > 0:
-            print(f"\n🔗 图片链接示例:")
-            for match in re.finditer(r'!\[.*?\]\((http://127\.0\.0\.1:9000/img/.*?)\)', markdown):
-                print(f"   {match.group(1)}")
-                break
             
     except Exception as e:
         print(f"❌ 转换失败: {e}")
